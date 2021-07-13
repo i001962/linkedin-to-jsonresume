@@ -60,6 +60,7 @@
         ]
     },
     "dependencies": {
-        "@dan/vcards": "^2.10.0"
+        "@dan/vcards": "^2.10.0",
+        "gun": "^0.2020.1232"
     }
 }

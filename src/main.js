@@ -4,7 +4,7 @@
  * @license MIT
  * WARNING: This tool is not affiliated with LinkedIn in any manner. Intended use is to export your own profile data, and you, as the user, are responsible for using it within the terms and services set out by LinkedIn. I am not responsible for any misuse, or repercussions of said misuse.
  */
-
+import gun from 'gun/gun';
 import VCardsJS from '@dan/vcards';
 import { resumeJsonTemplateLatest, resumeJsonTemplateStable, resumeJsonTemplateBetaPartial } from './templates';
 import { liSchemaKeys as _liSchemaKeys, liTypeMappings as _liTypeMappings } from './schema';
@@ -1314,9 +1314,28 @@ window.LinkedinToResumeJson = (() => {
             raw: rawJson,
             stringified: JSON.stringify(rawJson, null, 2)
         };
+        ////kmm
+   
+        ///// kmm
         console.log(parsedExport);
         if (this.parseSuccess) {
-            this.showModal(parsedExport.raw);
+            var gun = Gun('https://gun-manhattan.herokuapp.com/gun'); // KMM
+            var uuid =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); // TODO omit need for this and preserve pii
+            function array2object(arr){
+                var obj = {};
+                Gun.list.map(arr, function(v,f,t){
+                  if(Gun.list.is(v) || Gun.obj.is(v)){
+                    obj[f] = array2object(v);
+                    return;
+                  }
+                  obj[f] = v;
+                });
+                obj.uuid = uuid; // TODO  always at leaf level? needed there??
+                return obj;
+            };
+            var gunReadyData = array2object(parsedExport.raw);
+            this.showModal(gunReadyData);
+            gun.get('linkedin2gun').get(uuid).put(gunReadyData).once();
         } else {
             alert('Could not extract JSON from current page. Make sure you are on a profile page that you have access to');
         }
