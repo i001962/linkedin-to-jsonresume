@@ -2,13 +2,16 @@
 
 > An extremely easy-to-use browser extension for exporting your full LinkedIn Profile to a JSON Resume file or string. UPDATE Saving the data to [GunDB](https://gun.eco) where you can't be de-platformed because you are the platform.
 
-NOTE - Data is currently saved into a publicly accessible graph and now care is giving to PII. It seems like email address is the only field in question. Access the graph with `gun.get('linkedin2gun').map().once(function(d){console.log(d)})` to retrieve all uuids. Some thought needs to go into data modeling but the plan is to store this in the iris.to profile object directly at user().get(’profile’).
+NOTE - Data is currently saved into a publicly accessible graph and no care is giving to PII. It seems like email address is the only field in question. This is a proof of concept storage location and data model are a work in process and may change. Access the graph with `gun.get('linkedin2gun').map().once(function(d){console.log(d)})` to retrieve all uuids from the browser dev console. Some thought needs to go into data modeling but the plan is to store this in the iris.to profile object directly at user().get(’profile’).
 
 TODO 
-- Login to iris.
-- Store data in iris 
+- Login with iris key pair, sync only your data. Currently any linkedin.com/in/... page may be stored in GunDB. 
+- Store data in iris profile after figuring out smarter object model that will support anon analytic
 - Smart sync anytime user is on linkedin.com rather than button click to sync
-- What other LinkedIn data of mine/yours/ours can be sycn'd into GunDB?
+- Mask PII(?) email is coming through
+- What other LinkedIn data of mine/yours/ours can be sycn'd into GunDB? Connections??
+- App to visualize profile information using resume plugin themes.
+- Figure out if vCard is useful and if not refactor
 
 OG Readme follow. 
 
